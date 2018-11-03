@@ -1,0 +1,154 @@
+{
+	"title": "SuperAndes Uniandes",
+	"frameH": 600,
+	"frameW": 800,
+	"bannerPath": "./resources/config/logo.png",
+	"menuBar":
+	[
+		{ "menuTitle": "Proveedor",
+		  "options":
+			[
+				{
+					"label": "Registrar Proveedor",
+					"event": "crearProveedor"
+				}
+			]
+		},		
+		{ "menuTitle": "Producto",
+		  "options":
+			[
+				{
+					"label": "Registrar Producto",
+					"event": "adicionarProducto"
+				}
+			]
+		},
+		{ "menuTitle": "Cliente",
+		  "options":
+			[
+				{
+					"label": "Registrar Persona Natural",
+					"event": "crearPersonaNatural"
+				},
+				{
+					"label": "Registrar Empresa",
+					"event": "crearEmpresa"
+				}
+
+			]
+		},
+		{ "menuTitle": "Sucursal",
+		  "options":
+			[
+				{
+					"label": "Registrar Sucursal",
+					"event": "crearSucursal"
+				},
+				{
+					"label": "Registrar Local de Ventas",
+					"event": "crearLocalVentas"
+				},
+				{
+					"label": "Agregar Bodega",
+					"event": "crearBodega"
+				},
+				{
+					"label": "Agregar Estante",
+					"event": "crearEstante"
+				}
+			]
+		},
+		{ "menuTitle": "Promocion",
+		  "options":
+			[
+				{
+					"label": "Registrar Promocion",
+					"event": "crearPromocion"
+				},
+				{
+					"label": "Finalizar Promocion",
+					"event": "terminarPromocion"
+				
+				}
+			]
+		},
+		{ "menuTitle": "Pedido",
+		  "options":
+			[
+				{
+					"label": "Registrar Pedido",
+					"event": "crearPedido"
+				},
+				{
+					"label": "Finalizar Pedido",
+					"event" : "terminarPedido"
+				},
+				{
+					"label" : "Registrar Factura",
+					"event" : "crearFactura"
+				
+				}
+			]
+		},
+		{ "menuTitle": "Consultas Populares",
+		  "options":
+			[
+				{
+					"label": "Dinero Recolectado",
+					"event": "mostrarDineroRecolectado"
+				},
+				{
+					"label": "Promociones populares",
+					"event": "mostrarPromocionesPopulares"
+				},
+				{
+					"label": "Indices de ocupacion",
+					"event": "mostrarIndicesOcupacion"
+				},
+				{
+					"label": "Compras a Proveedores",
+					"event": "mostrarComprasProveedores"
+				},
+				{
+					"label": "Ventas",
+					"event": "mostrarVentas"
+				}
+			]
+		},		
+		{ "menuTitle": "Buscar Producto...",
+		  "options":
+			[
+				{
+					"label": "Precio",
+					"event": "buscarProductoPrecio"
+				},
+				{
+					"label": "Fecha de Vencimiento",
+					"event": "buscarProductoFechaVencimiento"
+				},
+				{
+					"label": "Peso y volumen",
+					"event": "buscarProductoPesoVolumen"
+				},
+				{
+					"label": "Proveedor",
+					"event": "buscarProductoProveedor"
+				},
+				{
+					"label": "Ciudad",
+					"event": "buscarProductoCiudad"
+				},
+				{
+					"label": "Sucursal",
+					"event": "buscarProductoSucursal"
+				},
+				{
+					"label": "Venta de Unidades",
+					"event": "buscarProductoVentas"
+				}
+			]
+		}		
+		
+	]
+}
+	
