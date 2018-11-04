@@ -70,6 +70,22 @@ public class SuperAndes {
 		psa.cerrarUnidadPersistencia ();
 	}
 	
+	/* ****************************************************************
+	 * 			Métodos para manejar los CLIENTES
+	 *****************************************************************/
+	/**
+	 * Adiciona de manera persistente un cliente 
+	 * Adiciona entradas al log de la aplicación
+	 * @param nombre - El nombre del tipo cliente
+	 * @return El objeto TipoBebida adicionado. null si ocurre alguna Excepción
+	 */
+	public Cliente adicionarCliente (String nombre, String correo)
+	{
+        log.info ("Adicionando Cliente: " + nombre);
+        Cliente cliente = psa.adicionarCliente (nombre,correo);		
+        log.info ("Adicionando Cliente: " + cliente);
+        return cliente;
+	}
 	
 	/**
 	 * Elimina un cliente por su nombre
@@ -163,39 +179,22 @@ public class SuperAndes {
         return borrrados;
 	}
 
-	public Producto adicionarProducto(String codigoBarras, long idPromocion, String nombre, String marca, double precioUnitario,
-			double volumenEmpaquetado, double peso, String categoria, double nivelReorden, int idFatura, long idAlmacenamiento,
-			long nitProveedor, double precioUnidadMedida, int cantidad, String unidadMedida) 
-	{
-		System.out.println ("Adicionando producto: " + nombre);
-        Producto producto = psa.adicionarProducto (codigoBarras,idPromocion,nombre,marca,precioUnitario,volumenEmpaquetado,peso, categoria,nivelReorden,idFatura, idAlmacenamiento,nitProveedor,precioUnidadMedida,cantidad,unidadMedida) ;
-        System.out.println ("Adicionando producto: " + nombre);
-        return producto;
+	public Producto adicionarProducto(String text, String text2, String text3, String text4, double parseDouble,
+			double parseDouble2, double parseDouble3, String text5, double parseDouble4, int parseInt, long parseLong,
+			JTextField nit) {
+		
+		return null;
 	}
 
-	public Proveedor adicionarProveedor(long nit, String nombre, int calificacion,String tipoProveedor)
-	{
-        System.out.println ("Adicionando proveedor: " + nombre);
-        Proveedor proveedor = psa.adicionarProveedor (nit,nombre,calificacion,tipoProveedor);
-        System.out.println ("Adicionando proveedor: " + proveedor);
-        return proveedor;
+	public Proveedor adicionarProveedor(long parseLong, String text, int parseInt) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	public PersonaNatural adicionarPersonaNatural(String correo, String nombre, int puntos, String tipoId,
-			long numIdentificacion)
-	{
-		System.out.println ("Adicionando Cliente: " + nombre);
-        psa.adicionarCliente (nombre,correo,puntos);
-        System.out.println ("Adicionando Cliente: " + nombre);
-        
-        System.out.println ("=========================================================================");
-		
-		System.out.println ("Adicionando Persona Natural: " + nombre);
-        PersonaNatural personaNatural = psa.adicionarPersonaNatural (correo,tipoId,numIdentificacion,puntos,nombre);
-        System.out.println ("Adicionando Persona Natural: " + nombre);
-        
-        return personaNatural;
-		
+	public PersonaNatural adicionarPersonaNatural(String text, String text2, int parseInt, String text3,
+			long parseLong) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public Sucursal adicionarSucursal(String text, String text2, String text3, long parseLong2) {
@@ -278,7 +277,12 @@ public class SuperAndes {
 		}
 	}
 	
-	public void terminarCompra(long cedula) {
+	public void devolverProductoAlAlmacenamiento(long idAlmacenamiento) {
+		psa.devolverProducto(idAlmacenamiento);
+	}
+	
+	
+	public void terminarCompra(long cedula,long numeroFactura) {
 		boolean found= false;
 		for(int i=0;i<carritos.size()||found==false;i++) {
 			CarritoCompras c= (CarritoCompras) carritos.get(i);
@@ -287,15 +291,14 @@ public class SuperAndes {
 					Producto p= (Producto) c.darProductos().get(j);
 					String codigo= p.getCodigoDeBarras();
 					
+					
 				}
 				found=true;
 			}
 		}
 	}
 	
-	
-	public void agregarProductoAllCarrito(Producto p, int idCarrito) 
-	{
+	public void agregarProductoAllCarrito(Producto p, int idCarrito) {
 			
 		CarritoCompras carrito= (CarritoCompras) carritos.get(idCarrito);
 		
