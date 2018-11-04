@@ -307,4 +307,10 @@ public class SuperAndes {
 		
 		carrito.agregarProductosCarrito(p);
 			}
+
+	public ArrayList verProductos(String sucursal)
+	{
+		psa.verProductosSucursal(sucursal);
+		return null;
+	}
 }

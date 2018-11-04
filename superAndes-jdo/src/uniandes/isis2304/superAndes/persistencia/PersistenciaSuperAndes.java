@@ -753,6 +753,12 @@ public class PersistenciaSuperAndes {
         }
 	}
 
+	public void verProductosSucursal(String sucursal)
+	{
+		List<Producto> lista = sqlSucursal.verProductosSucursal(sucursal);
+		
+	}
+
 
 /**
  * 

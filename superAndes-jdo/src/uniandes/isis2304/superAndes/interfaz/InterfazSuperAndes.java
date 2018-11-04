@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileReader;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 import javax.jdo.JDODataStoreException;
 import javax.swing.ImageIcon;
@@ -221,12 +222,34 @@ public class InterfazSuperAndes extends JFrame implements ActionListener{
 	        	
 	        }
 	        JMenu sc = new JMenu();
-	        JMenuItem item1 = new JMenuItem();
+	        JMenuItem item1 = new JMenuItem("Solicitar carrito");
 	        item1.addActionListener(this);
 	        item1.setActionCommand("tomarCarrito");
+	        
+	        JMenuItem item2 = new JMenuItem("Añadir producto");
+	        item2.addActionListener(this);
+	        item2.setActionCommand("pagarCompra");
+	        
+	        JMenuItem item3 = new JMenuItem("Devolver producto");
+	        item2.addActionListener(this);
+	        item2.setActionCommand("pagarCompra");
+	        
+	        JMenuItem item4 = new JMenuItem("Pagar compra");
+	        item2.addActionListener(this);
+	        item2.setActionCommand("pagarCompra");
+	        
+	        JMenuItem item5= new JMenuItem("Abandonar carrito");
+	        item2.addActionListener(this);
+	        item2.setActionCommand("pagarCompra");
+	        
+	        
 	        sc.setIcon(new ImageIcon("./data/sc1.png"));
 	        
 	        sc.add(item1);
+	        sc.add(item2);
+	        sc.add(item3);
+	        sc.add(item4);
+	        sc.add(item5);
 	        
 	        
         	menuBar.add(sc);
@@ -833,22 +856,23 @@ public class InterfazSuperAndes extends JFrame implements ActionListener{
 		    {
 		    	try 
 		    	{
-		    		JTextField i = new JTextField();
+		    		JTextField id = new JTextField();
+		    		JTextField local = new JTextField();
 
 		    		Object[]parametros =
 		    			{
-		    				"Id:", i
+		    				"Id:", id,
+		    				"Local de Ventas", local
 		    			};
 		    		
-		    		int option = JOptionPane.showConfirmDialog(null, parametros, "Ingrese su ID", JOptionPane.OK_CANCEL_OPTION);
+		    		int option = JOptionPane.showConfirmDialog(null, parametros, "Ingrese su informacion", JOptionPane.OK_CANCEL_OPTION);
 		    		if (option == JOptionPane.OK_OPTION)
 		    		{
-		    			
-		    			
-		        		superAndes.tomarCarrito(Integer.parseInt(i.getText()));
+		    			ArrayList productos = superAndes.verProductos(local.getText());
+		        		superAndes.tomarCarrito(Integer.parseInt(id.getText()));
 
 		        		String resultado = "En tomarCarrito\n\n";
-		        		resultado += "Carrito tomado con ID: " + i.getText();
+		        		resultado += "Carrito tomado con ID: " + id.getText();
 		    			resultado += "\n Operación terminada";
 		    			panelDatos.actualizarInterfaz(resultado);
 		    		}
