@@ -18,6 +18,7 @@ import com.google.gson.JsonObject;
 
 import uniandes.isis2304.superAndes.negocio.Bodega;
 import uniandes.isis2304.superAndes.negocio.Cliente;
+import uniandes.isis2304.superAndes.negocio.ClienteFrecuente;
 import uniandes.isis2304.superAndes.negocio.PersonaNatural;
 import uniandes.isis2304.superAndes.negocio.Producto;
 import uniandes.isis2304.superAndes.negocio.Proveedor;
@@ -757,6 +758,39 @@ public class PersistenciaSuperAndes {
 	public void verProductosSucursal(String sucursal)
 	{
 		List<Producto> lista = sqlSucursal.verProductosSucursal(sucursal);
+		
+	}
+
+	public List<ClienteFrecuente> darClientesFrecuentes(String sucursal)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            //long idCliente = nextval ();
+            List<ClienteFrecuente> rsp = sqlFactura.darClientesFrecuentes(pm, sucursal);
+            tx.commit();
+            
+            System.out.println ("Lista de clientes frecuentes en " + sucursal + ", Numero de clientes: " +  rsp.size());
+            
+            return rsp;
+        }
+        catch (Exception e)
+        {
+        	e.printStackTrace();
+        	System.out.println ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+		
 		
 	}
 

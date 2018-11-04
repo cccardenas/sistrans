@@ -348,5 +348,21 @@ public class SuperAndes {
 		psa.verProductosSucursal(sucursal);
 		return null;
 	}
+	
+	/**====== CONSULTAS ITERACION 2 =======**/
+	
+	public void darAnalisisSuperAndes(String unidadTiempo, String tipoProducto)
+	{
+		
+	}
+	
+	public List<ClienteFrecuente> darClientesFrecuentes(String sucursal)
+	{
+		System.out.println ("Adicionando lista de clientes frecuentes de: " + sucursal);
+        
+        return psa.darClientesFrecuentes(sucursal);
+	}
+	
+	
 
 }

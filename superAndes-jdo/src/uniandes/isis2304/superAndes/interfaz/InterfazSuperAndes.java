@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.lang.reflect.Method;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.jdo.JDODataStoreException;
 import javax.swing.ImageIcon;
@@ -27,6 +28,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 
 import uniandes.isis2304.superAndes.negocio.Bodega;
+import uniandes.isis2304.superAndes.negocio.ClienteFrecuente;
 import uniandes.isis2304.superAndes.negocio.Estante;
 import uniandes.isis2304.superAndes.negocio.Factura;
 import uniandes.isis2304.superAndes.negocio.LocalVentas;
@@ -920,6 +922,54 @@ public class InterfazSuperAndes extends JFrame implements ActionListener{
 		        		}
 		        		String resultado = "En adicionarPromocion\n\n";
 		        		resultado += "Promocion adicionada exitosamente: " + idPromocion.getText();
+		    			resultado += "\n Operación terminada";
+		    			panelDatos.actualizarInterfaz(resultado);
+		    		}
+		    		else
+		    		{
+		    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+		    		}
+				} 
+		    	catch (Exception e) 
+		    	{
+		    		e.printStackTrace();
+					String resultado = generarMensajeError(e);
+					panelDatos.actualizarInterfaz(resultado);
+				}
+		    }
+		    
+		    public void darClientesFrecuentes( )
+		    {
+		    	try 
+		    	{
+		    		JTextField sucursal = new JTextField();
+		
+		    		Object[]parametros =
+		    			{
+		    				"Nombre Sucursal:", sucursal
+
+		    			};
+		    		
+		    		int option = JOptionPane.showConfirmDialog(null, parametros, "Ingrese el nombre de la sucursal", JOptionPane.OK_CANCEL_OPTION);
+		    		if (option == JOptionPane.OK_OPTION)
+		    		{
+		    			
+		    			
+		        		List<ClienteFrecuente> p = superAndes.darClientesFrecuentes(sucursal.getText());
+		        												
+		        		if (p == null)
+		        		{
+		        			throw new Exception ("No se pudo encontrar la lista de clientes frecuentes");
+		        		}
+		        		String resultado = "";
+		        		for(ClienteFrecuente a : p)
+		        		{
+		        			resultado += "Numero de compras: " + a.getNumeroCompras() +"\n";
+		        			resultado += "Correo de cliente: " + a.getCorreoCliente() +"\n";
+		        			resultado += "Fecha de compra: " + a.getFechaCompra() + "\n\n";
+		        			
+		        		}
+		        		
 		    			resultado += "\n Operación terminada";
 		    			panelDatos.actualizarInterfaz(resultado);
 		    		}
