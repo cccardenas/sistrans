@@ -14,7 +14,7 @@ public class Proveedor {
 	/**
 	 * El nit ÚNICO del proveedor.
 	 */
-	private int nit;
+	private long nit;
 
 	/**
 	 * El nombre ÚNICO del proveedor.
@@ -53,7 +53,7 @@ public class Proveedor {
 	 * @param calificacion - La calificación cuantificable del proveedor.
 	 * @param tipoProveedor - El tipo del proveedor.
 	 */
-	public Proveedor(int nit, String nombre, int calificacion, String tipoProveedor)
+	public Proveedor(long nit, String nombre, int calificacion, String tipoProveedor)
 	{
 		this.setNit(nit);
 		this.setNombre(nombre);
@@ -66,7 +66,7 @@ public class Proveedor {
 	 * 
 	 * @return El nit del proveedor.
 	 */
-	public int getNit() {
+	public long getNit() {
 		return nit;
 	}
 
@@ -75,7 +75,7 @@ public class Proveedor {
 	 * 
 	 * @param nit - El nit del proveedor.
 	 */
-	public void setNit(int nit) {
+	public void setNit(long nit) {
 		this.nit = nit;
 	}
 

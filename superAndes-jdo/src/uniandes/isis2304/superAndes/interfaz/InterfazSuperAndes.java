@@ -220,78 +220,6 @@ public class InterfazSuperAndes extends JFrame implements ActionListener{
 	        setJMenuBar ( menuBar );	
 	    }
 	    
-		/* ****************************************************************
-		 * 			CRUD de Producto
-		 *****************************************************************/
-	    /**
-	     * Adiciona un tipo de producto con la información dada por el usuario
-	     * Se crea una nueva tupla de Producto en la base de datos, si un tipo de bebida con ese nombre no existía
-	     */
-	    public void adicionarProducto( )
-	    {
-	    	try 
-	    	{
-	    		JTextField codigoDeBarras = new JTextField();
-	    		JTextField idPromocion = new JTextField();
-	    		JTextField nombre = new JTextField();
-	    		JTextField marca = new JTextField();
-	    		JTextField precio_unitario = new JTextField();
-	    		JTextField volumen_empaquetado = new JTextField();
-	    		JTextField peso = new JTextField();
-	    		JTextField categoria = new JTextField();
-	    		JTextField nivel_reorden = new JTextField();
-	    		JTextField numeroFactura = new JTextField();
-	    		JTextField idAlmacenamiento = new JTextField();
-	    		JTextField nit = new JTextField();
-	    		
-	    		Object[]parametros =
-	    			{
-	    			"Codigo de barras:",		   codigoDeBarras      ,
-	    			"idPromocion:",		   idPromocion         ,
-	    			"Nombre:",		   nombre              ,
-	    			"Marca:",		   marca               ,
-	    			"Precio Unitario:",		   precio_unitario     ,
-	    			"Volumen empaquetado:",		   volumen_empaquetado ,
-	    			"Peso:",		   peso                ,
-	    			"Categoria:",		   categoria           ,
-	    			"Nivel Reorden:",		   nivel_reorden       ,
-	    			"Numero Factura:",		   numeroFactura       ,
-	    			"idAlmacenamiento:",		   idAlmacenamiento    ,
-	    			"NIT:",		   nit 
-	    			};
-	    		
-	    		int option = JOptionPane.showConfirmDialog(null, parametros, "Ingrese los datos del producto", JOptionPane.OK_CANCEL_OPTION);
-	    		if (option == JOptionPane.OK_OPTION)
-	    		{
-	    			
-	    			
-	        		Producto p = superAndes.adicionarProducto(codigoDeBarras.getText() ,idPromocion.getText() ,nombre.getText(),marca.getText(),
-	        								Double.parseDouble(precio_unitario.getText()),Double.parseDouble(volumen_empaquetado.getText()),
-	        								Double.parseDouble(peso.getText()),categoria.getText(),Double.parseDouble(nivel_reorden.getText()),Integer.parseInt(numeroFactura.getText()),
-	        								Long.parseLong(idAlmacenamiento.getText()), 
-	        				                nit);
-	        		if (p == null)
-	        		{
-	        			throw new Exception ("No se pudo crear un producto con codigo de barras: " + codigoDeBarras.getText());
-	        		}
-	        		String resultado = "En adicionarProducto\n\n";
-	        		resultado += "Producto adicionado exitosamente: " + codigoDeBarras.getText();
-	    			resultado += "\n Operación terminada";
-	    			panelDatos.actualizarInterfaz(resultado);
-	    		}
-	    		else
-	    		{
-	    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
-	    		}
-			} 
-	    	catch (Exception e) 
-	    	{
-	    		e.printStackTrace();
-				String resultado = generarMensajeError(e);
-				panelDatos.actualizarInterfaz(resultado);
-			}
-	    }
-	    
 	    /* ****************************************************************
 		 * 			CRUD de Producto
 		 *****************************************************************/
@@ -306,12 +234,14 @@ public class InterfazSuperAndes extends JFrame implements ActionListener{
 	    		JTextField nit = new JTextField();
 	    		JTextField nombre = new JTextField();
 	    		JTextField calificacion = new JTextField();
+	    		JTextField tipoProveedor = new JTextField();
 	    		
 	    		Object[]parametros =
 	    			{
 	    			"NIT:",nit ,
 	    			"Nombre:",nombre,
-	    			"Calificacion:",calificacion
+	    			"Calificacion:",calificacion,
+	    			"Tipo de Proveedor:",tipoProveedor
 	    			};
 	    		
 	    		int option = JOptionPane.showConfirmDialog(null, parametros, "Ingrese los datos del proveedor", JOptionPane.OK_CANCEL_OPTION);
@@ -319,7 +249,7 @@ public class InterfazSuperAndes extends JFrame implements ActionListener{
 	    		{
 	    			
 	    			
-	        		Proveedor p = superAndes.adicionarProveedor(Long.parseLong(nit.getText()),nombre.getText(),Integer.parseInt(calificacion.getText()));
+	        		Proveedor p = superAndes.adicionarProveedor(Integer.parseInt(nit.getText()),nombre.getText(),Integer.parseInt(calificacion.getText()),tipoProveedor.getText());
 	        		if (p == null)
 	        		{
 	        			throw new Exception ("No se pudo crear un proveedor con NIT: " + nit.getText());
@@ -393,9 +323,10 @@ public class InterfazSuperAndes extends JFrame implements ActionListener{
 	    	{
 	    		e.printStackTrace();
 				String resultado = generarMensajeError(e);
-				panelDatos.actualizarInterfaz(resultado);
+				panelDatos.actualizarInterfaz(resultado + " " + e.getMessage());
 			}
 	    }
+	    
 	    
 	    /* ****************************************************************
 		 * 			CRUD de Empresa

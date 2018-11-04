@@ -48,8 +48,9 @@ public class SQLProveedor {
 	 * @param tipoProveedor - El tipo de proveedor, puede ser 'General' o 'Especifico'.
 	 * @return El número de tuplas insertadas
 	 */
-	public long adicionarProveedor (PersistenceManager pm, int nit, String nombre, int calificacion, String tipoProveedor) 
+	public long adicionarProveedor (PersistenceManager pm, long nit, String nombre, int calificacion, String tipoProveedor) 
 	{
+		System.out.println("Tabla proveedor: "+ psa.darTablaProveedor() );
         Query q = pm.newQuery(SQL, "INSERT INTO " + psa.darTablaProveedor() + "(nit, nombre, calificacion, tipoProveedor) values (?, ?, ?, ?)");
         q.setParameters(nit, nombre, calificacion, tipoProveedor);
         return (long) q.executeUnique();            
