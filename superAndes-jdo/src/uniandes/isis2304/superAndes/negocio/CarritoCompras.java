@@ -55,6 +55,14 @@ public class CarritoCompras {
 			}
 	}
 	
+	public void devolverProductos() {
+		
+		for(int i=0;i<productos.size();i++) {
+			
+			
+		}
+	}
+	
 	
 	/*
 	 * vacia un carrito y remueve los productos en caso de que no se complete la compra
