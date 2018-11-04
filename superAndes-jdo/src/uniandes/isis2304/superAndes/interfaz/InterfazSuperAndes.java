@@ -214,10 +214,27 @@ public class InterfazSuperAndes extends JFrame implements ActionListener{
 	        		mItem.setActionCommand(event);
 	        		
 	        		menu.add(mItem);
-	        	}       
+	        	}
+	        	
 	        	menuBar.add( menu );
-	        }        
+	        	
+	        }
+	        JMenu sc = new JMenu();
+	        JMenuItem item1 = new JMenuItem();
+	        item1.addActionListener(this);
+	        item1.setActionCommand("tomarCarrito");
+	        sc.setIcon(new ImageIcon("./data/sc1.png"));
+	        
+	        sc.add(item1);
+	        
+	        
+        	menuBar.add(sc);
 	        setJMenuBar ( menuBar );	
+	    }
+	    
+	    public void crearMenuCarritoCompras()
+	    {
+	    	new InterfazSuperAndes().setVisible(true);
 	    }
 	    
 	    /* ****************************************************************
@@ -811,7 +828,41 @@ public class InterfazSuperAndes extends JFrame implements ActionListener{
 				}
 		    }
 
+		    public void tomarCarrito()
+		    {
+		    	try 
+		    	{
+		    		JTextField i = new JTextField();
 
+		    		Object[]parametros =
+		    			{
+		    				"Id:", i
+		    			};
+		    		
+		    		int option = JOptionPane.showConfirmDialog(null, parametros, "Ingrese su ID", JOptionPane.OK_CANCEL_OPTION);
+		    		if (option == JOptionPane.OK_OPTION)
+		    		{
+		    			
+		    			
+		        		superAndes.tomarCarrito(Integer.parseInt(i.getText()));
+
+		        		String resultado = "En tomarCarrito\n\n";
+		        		resultado += "Carrito tomado con ID: " + i.getText();
+		    			resultado += "\n Operación terminada";
+		    			panelDatos.actualizarInterfaz(resultado);
+		    		}
+		    		else
+		    		{
+		    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+		    		}
+				} 
+		    	catch (Exception e) 
+		    	{
+		    		e.printStackTrace();
+					String resultado = generarMensajeError(e);
+					panelDatos.actualizarInterfaz(resultado);
+				}
+		    }
 
 
 	  
@@ -921,7 +972,6 @@ public class InterfazSuperAndes extends JFrame implements ActionListener{
 	    {
 	        try
 	        {
-	        	
 	            // Unifica la interfaz para Mac y para Windows.
 	            InterfazSuperAndes interfaz = new InterfazSuperAndes( );
 	            interfaz.setVisible( true );

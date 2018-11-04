@@ -35,7 +35,7 @@ public class SuperAndes {
 	 */
 	private PersistenciaSuperAndes psa;
 	
-	
+	private int count;
 	/**
 	 * carritos de compras 
 	 */
@@ -60,6 +60,8 @@ public class SuperAndes {
 	public SuperAndes (JsonObject tableConfig)
 	{
 		psa = PersistenciaSuperAndes.getInstance (tableConfig);
+		crearCarritos();
+		count = carritos.size();
 	}
 	
 	/**
@@ -254,16 +256,22 @@ public class SuperAndes {
 		}
 	return	carritos.size();
 	}
+	
+	
 
 	public void tomarCarrito(long cedula) {
 		boolean tomado=false;
-		for(int i=0; i<carritos.size() || tomado==true;i++) {
+		for(int i=0; i<carritos.size() && !tomado;i++) {
 			CarritoCompras c= (CarritoCompras) carritos.get(i);
-			if(c.darDisponibilidad()==true) {
+			if(c.darDisponibilidad()) {
 				c.setCedula(cedula);
-				tomado=false;
+				tomado=true;
+				count--;
 			}
 		}
+		
+		System.out.println(count);
+		
 	}
 	
 	public void dejarCarritoSinCompra(long cedula) {
