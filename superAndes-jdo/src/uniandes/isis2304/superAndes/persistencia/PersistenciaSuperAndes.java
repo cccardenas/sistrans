@@ -113,6 +113,8 @@ public class PersistenciaSuperAndes {
 	 */
 	private SQLSucursal sqlSucursal;
 	
+	private SQLFacturaProducto sqlFacturaProducto;
+	
 	/**
 	 * Atributo para el acceso a las sentencias SQL propias a PersistenciaParranderos
 	 */
@@ -146,6 +148,7 @@ public class PersistenciaSuperAndes {
 	    tablas.add ("A_PROMOCION"); //11
 	    tablas.add ("A_PROVEEDOR"); //12
 	    tablas.add ("A_SUCURSAL"); //13       
+	    tablas.add("A_FACTURAPRODUCTO");//14
 	
 	}
 
@@ -338,6 +341,11 @@ public class PersistenciaSuperAndes {
 		return tablas.get (13);
 	}
 	
+	
+	public String darTablaFacturasProducto ()
+	{
+		return tablas.get (14);
+	}
 	/**
 	 * Crea los atributos de clases de apoyo SQL
 	 */
@@ -355,6 +363,7 @@ public class PersistenciaSuperAndes {
 		sqlProducto = new SQLProducto(this);		
 		sqlPromocion = new SQLPromocion(this);
 		sqlSucursal = new SQLSucursal(this);
+		sqlFacturaProducto = new SQLFacturaProducto(this);
 	}
 	
 	/**
@@ -556,6 +565,9 @@ public class PersistenciaSuperAndes {
         }
 	}
 
+	
+	
+	
 	/**
 	 * M�todo que elimina, de manera transaccional, una tupla en la tabla Cliente, dado el nombre del tipo de bebida
 	 * Adiciona entradas al log de la aplicaci�n
@@ -635,6 +647,9 @@ public class PersistenciaSuperAndes {
 		
 	}
 
-	
+/**
+ * 
+ * CREA UNA FACTURA	
+ */
 
 }
