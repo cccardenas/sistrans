@@ -36,7 +36,6 @@ public class SuperAndes {
 	 */
 	private PersistenciaSuperAndes psa;
 	
-	private int count;
 	/**
 	 * carritos de compras 
 	 */
@@ -61,8 +60,9 @@ public class SuperAndes {
 	public SuperAndes (JsonObject tableConfig)
 	{
 		psa = PersistenciaSuperAndes.getInstance (tableConfig);
+
 		crearCarritos();
-		count = carritos.size();
+
 	}
 	
 	/**
@@ -73,6 +73,8 @@ public class SuperAndes {
 		psa.cerrarUnidadPersistencia ();
 	}
 	
+
+
 	
 	/**
 	 * Elimina un cliente por su nombre
@@ -166,6 +168,7 @@ public class SuperAndes {
         return borrrados;
 	}
 
+
 	public Producto adicionarProducto(String codigoBarras, long idPromocion, String nombre, String marca, double precioUnitario,
 			double volumenEmpaquetado, double peso, String categoria, double nivelReorden, int idFatura, long idAlmacenamiento,
 			long nitProveedor, double precioUnidadMedida, int cantidad, String unidadMedida) 
@@ -200,6 +203,19 @@ public class SuperAndes {
         return personaNatural;
 		
 	}
+	
+	public Producto adicionarProducto(String text, String text2, String text3, String text4, double parseDouble,
+			double parseDouble2, double parseDouble3, String text5, double parseDouble4, int parseInt, long parseLong,
+			JTextField nit) {
+		
+		return null;
+	}
+
+	public Proveedor adicionarProveedor(long parseLong, String text, int parseInt) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 	public Sucursal adicionarSucursal(String text, String text2, String text3, long parseLong2) {
 		// TODO Auto-generated method stub
@@ -257,22 +273,24 @@ public class SuperAndes {
 		}
 	return	carritos.size();
 	}
+
 	
 	
 
+
+		
+
+
 	public void tomarCarrito(long cedula) {
 		boolean tomado=false;
-		for(int i=0; i<carritos.size() && !tomado;i++) {
+		for(int i=0; i<carritos.size() || tomado==true;i++) {
 			CarritoCompras c= (CarritoCompras) carritos.get(i);
-			if(c.darDisponibilidad()) {
+			if(c.darDisponibilidad()==true) {
 				c.setCedula(cedula);
-				tomado=true;
-				count--;
+				tomado=false;
 			}
 		}
-		
-		System.out.println(count);
-		
+
 	}
 	
 	public void dejarCarritoSinCompra(long cedula) {
@@ -280,37 +298,55 @@ public class SuperAndes {
 		for(int i=0;i<carritos.size()||found==false;i++) {
 			CarritoCompras c= (CarritoCompras) carritos.get(i);
 			if(c.darCedula()==cedula) {
+
+				c.devolverProductos();
+
 				c.setCedula(0);
 				found=true;
 			}
 		}
 	}
 	
-	public void terminarCompra(long cedula) {
+
+	
+	
+	
+	
+	public void terminarCompra(long cedula,long numeroFactura) {
+
 		boolean found= false;
 		for(int i=0;i<carritos.size()||found==false;i++) {
 			CarritoCompras c= (CarritoCompras) carritos.get(i);
 			if(c.darCedula()==cedula) {
 				for(int j=0;j<c.darProductos().size();j++) {
+
 					//CODIGO PARA VENDER PRODUCTOS
+
+					Producto p= (Producto) c.darProductos().get(j);
+					String codigo= p.getCodigoDeBarras();
+					
+					
+
 				}
 				found=true;
 			}
 		}
 	}
 	
-	
-	public void agregarProductoAllCarrito(Producto p, int idCarrito) 
-	{
+
+	public void agregarProductoAllCarrito(Producto p, int idCarrito) {
+
 			
 		CarritoCompras carrito= (CarritoCompras) carritos.get(idCarrito);
 		
 		carrito.agregarProductosCarrito(p);
 			}
 
+
 	public ArrayList verProductos(String sucursal)
 	{
 		psa.verProductosSucursal(sucursal);
 		return null;
 	}
+
 }

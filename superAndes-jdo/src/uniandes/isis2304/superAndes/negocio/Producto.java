@@ -139,7 +139,7 @@ public class Producto {
 	 * @param idAlmacenamiento - El identificador del almacenamiento a donde pertenece el producto en una sucursal.
 	 * @param nitProveedor - El nit del proveedor del producto.
 	 */
-	public Producto(String codigoDeBarras, long idPromocion, String nombre, String marca, double precioUnitario, double volumenEmpaquetado, double peso, double precioPorUnidadMedida, int cantidadPresentacion, String unidadMedida, double precio, String categoria, double nivelDeReorden, long numeroFactura, long idAlmacenamiento, long nitProveedor) 
+	public Producto(String codigoDeBarras, long idPromocion, String nombre, String marca, double precioUnitario, double volumenEmpaquetado, double peso, String categoria, double nivelReorden, long numeroFactura, long idAlmacenamiento, long nitProveedor, double precioUnidadMedida, int cantidad, String unidadMedida) 
 	{
 		this.setCodigoDeBarras(codigoDeBarras);
 		this.setIdPromocion(idPromocion);

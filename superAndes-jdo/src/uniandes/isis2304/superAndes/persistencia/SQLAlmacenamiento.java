@@ -102,5 +102,15 @@ class SQLAlmacenamiento {
 		return (List<Almacenamiento>) q.executeList();
 	}
 	
+	
+	public long aumentarCantidadAlmacenamiento(PersistenceManager pm , long idAlmacenamiento) {
+		Query q = pm.newQuery(SQL, "SELECT CANTIDADPRODUCTOS FROM " + psa.darTablaAlmacenamiento ()+ "WHERE ID_ALMACENAMIENTO = ?");
+		 q.setParameters(idAlmacenamiento);  
+		int cantidad = (int) q.execute();
+		cantidad++;
+		Query a = pm.newQuery(SQL, "UPDATE CANTIDADPRODUCTOS FROM " + psa.darTablaAlmacenamiento ()+ "WHERE ID_ALMACENAMIENTO = "+cantidad+";");
+		 a.setParameters(idAlmacenamiento);  
+		 return idAlmacenamiento;
+	}
 
 }

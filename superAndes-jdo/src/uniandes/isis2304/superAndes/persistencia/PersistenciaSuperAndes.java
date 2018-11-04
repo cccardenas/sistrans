@@ -1,3 +1,4 @@
+
 package uniandes.isis2304.superAndes.persistencia;
 
 import java.util.LinkedList;
@@ -704,7 +705,7 @@ public class PersistenciaSuperAndes {
             
             System.out.println ("Insercion de producto: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
             
-            return new Producto (codigoBarras,idPromocion,nombre,marca,precioUnitario,volumenEmpaquetado,peso,precioUnidadMedida,cantidad,unidadMedida,precioUnitario,categoria,nivelReorden,idFactura,idAlmacenamiento,nitProveedor);
+            return new Producto (codigoBarras,idPromocion,nombre,marca,precioUnitario,volumenEmpaquetado,peso,categoria,nivelReorden,idFactura,idAlmacenamiento,nitProveedor,precioUnidadMedida,cantidad,unidadMedida);
         }
         catch (Exception e)
         {

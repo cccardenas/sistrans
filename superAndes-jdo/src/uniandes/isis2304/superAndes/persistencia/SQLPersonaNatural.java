@@ -51,12 +51,8 @@ public class SQLPersonaNatural {
 	 */
 	public Long adicionarPersonaNatural(PersistenceManager pm,String tipoDocumento, long numeroIdentificacion,String correo)
 	{
-		 System.out.println("SQL");
-		 System.out.println(tipoDocumento);
-		 System.out.println(correo);
-		 System.out.println(numeroIdentificacion);
-		 Query q = pm.newQuery(SQL, "INSERT INTO " + psa.darTablaPersonaNatural () + "(CORREO_CLIENTE, TIPO_IDENTIFICACION, NUMERO_IDENTIFICACION) values (?, ?, ?)");
-	     q.setParameters(correo, tipoDocumento, numeroIdentificacion);
+		 Query q = pm.newQuery(SQL, "INSERT INTO " + psa.darTablaPersonaNatural () + "(NUMERO_IDENTIFICACION, TIPO_IDENTIFICACION, CORREO_CLIENTE) values (?, ?, ?)");
+	     q.setParameters(numeroIdentificacion, tipoDocumento, correo);
 	     return (long) q.executeUnique();
 	}
 	/**

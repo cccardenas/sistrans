@@ -60,12 +60,11 @@ public class SQLProducto {
 	 * @param nitProveedor - El nit del proveedor del producto.
 	 * @return El número de tuplas insertadas
 	 */
-	public long adicionarProducto (PersistenceManager pm, String codigoDeBarras,long idPromocion, String nombre, String marca, double precioUnitario, double volumenEmpaquetado, double peso,String categoria, double nivelReorden,long idFactura,long idAlmacenamiento, long nitProveedor,double precioUnidadMedida,int cantidad,String unidadMedida) 
+	public long adicionarProducto (PersistenceManager pm, String codigoDeBarras, long idPromocion, String nombre, String marca, double precioUnitario, double volumenEmpaquetado, double peso, String categoria, double nivelReorden, long numeroFactura, long idAlmacenamiento, long nitProveedor, double precioUnidadMedida, int cantidad, String unidadMedida)
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + psa.darTablaProducto() + "(CODIGO_DE_BARRAS, ID_PROMOCION, MARCA, PRECIO_UNITARIO, VOLUMEN_EMPAQUETADO, PESO, PRECIO_UNIDAD_MEDIDA, CANTIDAD_PRESENTACION, UNIDAD_DE_MEDIDA, PRECIO, CATEGORIA, NIVEL_DE_REORDEN, NUMERO_FACTURA, ID_ALMACENAMIENTO, NIT_PROVEEDOR) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        q.setParameters(codigoDeBarras, nombre, marca, precioUnitario, volumenEmpaquetado, peso, precioUnidadMedida, cantidad, unidadMedida, precioUnitario, categoria, nivelReorden, idFactura, idAlmacenamiento, nitProveedor);
-        return (long) q.executeUnique();
-                                                                                                                                                            
+        Query q = pm.newQuery(SQL, "INSERT INTO " + psa.darTablaProducto() + "(CODIGO_DE_BARRAS, NOMBRE, MARCA, PRECIO_UNITARIO, VOLUMEN_EMPAQUETADO, PESO, PRECIO_UNIDAD_MEDIDA, CANTIDAD_PRESENTACION, UNIDAD_DE_MEDIDA, PRECIO, CATEGORIA, NIVEL_DE_REORDEN, NUMERO_FACTURA, ID_ALMACENAMIENTO, NIT_PROVEEDOR) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        q.setParameters(codigoDeBarras, nombre, marca, precioUnitario, volumenEmpaquetado, peso, precioUnidadMedida, cantidad, unidadMedida, precioUnitario, categoria, nivelReorden, numeroFactura, idAlmacenamiento, nitProveedor);
+        return (long) q.executeUnique();            
 	}
 	
 	/**

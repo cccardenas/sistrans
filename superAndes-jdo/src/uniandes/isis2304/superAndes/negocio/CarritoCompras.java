@@ -2,6 +2,8 @@ package uniandes.isis2304.superAndes.negocio;
 
 import java.util.ArrayList;
 
+import uniandes.isis2304.superAndes.persistencia.PersistenciaSuperAndes;
+
 public class CarritoCompras {
 
 	/*
@@ -58,8 +60,9 @@ public class CarritoCompras {
 	public void devolverProductos() {
 		
 		for(int i=0;i<productos.size();i++) {
-			
-			
+			Producto p=(Producto) productos.get(i);
+			long id_almacenamiento= p.getIdAlmacenamiento();
+		
 		}
 	}
 	
