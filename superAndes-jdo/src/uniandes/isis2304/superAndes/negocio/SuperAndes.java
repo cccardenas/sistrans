@@ -271,6 +271,7 @@ public class SuperAndes {
 		for(int i=0;i<carritos.size()||found==false;i++) {
 			CarritoCompras c= (CarritoCompras) carritos.get(i);
 			if(c.darCedula()==cedula) {
+				c.devolverProductos();
 				c.setCedula(0);
 				found=true;
 			}
@@ -283,7 +284,9 @@ public class SuperAndes {
 			CarritoCompras c= (CarritoCompras) carritos.get(i);
 			if(c.darCedula()==cedula) {
 				for(int j=0;j<c.darProductos().size();j++) {
-					//CODIGO PARA VENDER PRODUCTOS
+					Producto p= (Producto) c.darProductos().get(j);
+					String codigo= p.getCodigoDeBarras();
+					
 				}
 				found=true;
 			}
