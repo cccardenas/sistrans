@@ -119,7 +119,7 @@
 				},
 				{
 					"label": "Clientes Frecuentes",
-					"event": "clientesFrecuentes"
+					"event": "darClientesFrecuentes"
 				}
 				
 			]
