@@ -1,3 +1,4 @@
+
 package uniandes.isis2304.superAndes.interfaz;
 
 import java.awt.BorderLayout;
@@ -6,6 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileReader;
 import java.lang.reflect.Method;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.jdo.JDODataStoreException;
 import javax.swing.ImageIcon;
@@ -24,6 +28,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 
 import uniandes.isis2304.superAndes.negocio.Bodega;
+import uniandes.isis2304.superAndes.negocio.ClienteFrecuente;
 import uniandes.isis2304.superAndes.negocio.Estante;
 import uniandes.isis2304.superAndes.negocio.Factura;
 import uniandes.isis2304.superAndes.negocio.LocalVentas;
@@ -214,10 +219,51 @@ public class InterfazSuperAndes extends JFrame implements ActionListener{
 	        		mItem.setActionCommand(event);
 	        		
 	        		menu.add(mItem);
-	        	}       
+
+	        	}
+	        	
 	        	menuBar.add( menu );
-	        }        
+	        	
+	        }
+	        JMenu sc = new JMenu();
+	        JMenuItem item1 = new JMenuItem("Solicitar carrito");
+	        item1.addActionListener(this);
+	        item1.setActionCommand("tomarCarrito");
+	        
+	        JMenuItem item2 = new JMenuItem("Añadir producto");
+	        item2.addActionListener(this);
+	        item2.setActionCommand("pagarCompra");
+	        
+	        JMenuItem item3 = new JMenuItem("Devolver producto");
+	        item2.addActionListener(this);
+	        item2.setActionCommand("pagarCompra");
+	        
+	        JMenuItem item4 = new JMenuItem("Pagar compra");
+	        item2.addActionListener(this);
+	        item2.setActionCommand("pagarCompra");
+	        
+	        JMenuItem item5= new JMenuItem("Abandonar carrito");
+	        item2.addActionListener(this);
+	        item2.setActionCommand("pagarCompra");
+	        
+	        
+	        sc.setIcon(new ImageIcon("./data/sc1.png"));
+	        
+	        sc.add(item1);
+	        sc.add(item2);
+	        sc.add(item3);
+	        sc.add(item4);
+	        sc.add(item5);
+	        
+	        
+        	menuBar.add(sc);
 	        setJMenuBar ( menuBar );	
+	    }
+	    
+	    public void crearMenuCarritoCompras()
+	    {
+	    	new InterfazSuperAndes().setVisible(true);
+
 	    }
 	    
 		/* ****************************************************************
@@ -290,6 +336,7 @@ public class InterfazSuperAndes extends JFrame implements ActionListener{
 				String resultado = generarMensajeError(e);
 				panelDatos.actualizarInterfaz(resultado);
 			}
+
 	    }
 	    
 	    /* ****************************************************************
@@ -306,12 +353,16 @@ public class InterfazSuperAndes extends JFrame implements ActionListener{
 	    		JTextField nit = new JTextField();
 	    		JTextField nombre = new JTextField();
 	    		JTextField calificacion = new JTextField();
+	    		JTextField tipoProveedor = new JTextField();
+
 	    		
 	    		Object[]parametros =
 	    			{
 	    			"NIT:",nit ,
 	    			"Nombre:",nombre,
-	    			"Calificacion:",calificacion
+	    			"Calificacion:",calificacion,
+	    			"Tipo de Proveedor:",tipoProveedor
+
 	    			};
 	    		
 	    		int option = JOptionPane.showConfirmDialog(null, parametros, "Ingrese los datos del proveedor", JOptionPane.OK_CANCEL_OPTION);
@@ -319,7 +370,9 @@ public class InterfazSuperAndes extends JFrame implements ActionListener{
 	    		{
 	    			
 	    			
-	        		Proveedor p = superAndes.adicionarProveedor(Long.parseLong(nit.getText()),nombre.getText(),Integer.parseInt(calificacion.getText()));
+
+	        		Proveedor p = superAndes.adicionarProveedor(Integer.parseInt(nit.getText()),nombre.getText(),Integer.parseInt(calificacion.getText()),tipoProveedor.getText());
+
 	        		if (p == null)
 	        		{
 	        			throw new Exception ("No se pudo crear un proveedor con NIT: " + nit.getText());
@@ -393,10 +446,15 @@ public class InterfazSuperAndes extends JFrame implements ActionListener{
 	    	{
 	    		e.printStackTrace();
 				String resultado = generarMensajeError(e);
-				panelDatos.actualizarInterfaz(resultado);
+
+				panelDatos.actualizarInterfaz(resultado + " " + e.getMessage());
 			}
 	    }
 	    
+	    
+
+	    
+
 	    /* ****************************************************************
 		 * 			CRUD de Empresa
 		 *****************************************************************/
@@ -879,7 +937,92 @@ public class InterfazSuperAndes extends JFrame implements ActionListener{
 					panelDatos.actualizarInterfaz(resultado);
 				}
 		    }
+		    
+		    public void darClientesFrecuentes( )
+		    {
+		    	try 
+		    	{
+		    		JTextField sucursal = new JTextField();
+		
+		    		Object[]parametros =
+		    			{
+		    				"Nombre Sucursal:", sucursal
 
+		    			};
+		    		
+		    		int option = JOptionPane.showConfirmDialog(null, parametros, "Ingrese el nombre de la sucursal", JOptionPane.OK_CANCEL_OPTION);
+		    		if (option == JOptionPane.OK_OPTION)
+		    		{
+		    			
+		    			
+		        		List<ClienteFrecuente> p = superAndes.darClientesFrecuentes(sucursal.getText());
+		        												
+		        		if (p == null)
+		        		{
+		        			throw new Exception ("No se pudo encontrar la lista de clientes frecuentes");
+		        		}
+		        		String resultado = "";
+		        		for(ClienteFrecuente a : p)
+		        		{
+		        			resultado += "Numero de compras: " + a.getNumeroCompras() +"\n";
+		        			resultado += "Correo de cliente: " + a.getCorreoCliente() +"\n";
+		        			resultado += "Fecha de compra: " + a.getFechaCompra() + "\n\n";
+		        			
+		        		}
+		        		
+		    			resultado += "\n Operación terminada";
+		    			panelDatos.actualizarInterfaz(resultado);
+		    		}
+		    		else
+		    		{
+		    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+		    		}
+				} 
+		    	catch (Exception e) 
+		    	{
+		    		e.printStackTrace();
+					String resultado = generarMensajeError(e);
+					panelDatos.actualizarInterfaz(resultado);
+				}
+		    }
+
+
+		    public void tomarCarrito()
+		    {
+		    	try 
+		    	{
+		    		JTextField id = new JTextField();
+		    		JTextField local = new JTextField();
+
+		    		Object[]parametros =
+		    			{
+		    				"Id:", id,
+		    				"Local de Ventas", local
+		    			};
+		    		
+		    		int option = JOptionPane.showConfirmDialog(null, parametros, "Ingrese su informacion", JOptionPane.OK_CANCEL_OPTION);
+		    		if (option == JOptionPane.OK_OPTION)
+		    		{
+		    			ArrayList productos = superAndes.verProductos(local.getText());
+		        		superAndes.tomarCarrito(Integer.parseInt(id.getText()));
+
+		        		String resultado = "En tomarCarrito\n\n";
+		        		resultado += "Carrito tomado con ID: " + id.getText();
+		    			resultado += "\n Operación terminada";
+		    			panelDatos.actualizarInterfaz(resultado);
+		    		}
+		    		else
+		    		{
+		    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+		    		}
+				} 
+		    	catch (Exception e) 
+		    	{
+		    		e.printStackTrace();
+					String resultado = generarMensajeError(e);
+					panelDatos.actualizarInterfaz(resultado);
+				}
+		    }
 
 
 
@@ -990,7 +1133,6 @@ public class InterfazSuperAndes extends JFrame implements ActionListener{
 	    {
 	        try
 	        {
-	        	
 	            // Unifica la interfaz para Mac y para Windows.
 	            InterfazSuperAndes interfaz = new InterfazSuperAndes( );
 	            interfaz.setVisible( true );
@@ -1000,8 +1142,5 @@ public class InterfazSuperAndes extends JFrame implements ActionListener{
 	            e.printStackTrace( );
 	        }
 	    }
-
-
-
-
 }
+

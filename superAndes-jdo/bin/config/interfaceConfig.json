@@ -112,7 +112,16 @@
 				{
 					"label": "Ventas",
 					"event": "mostrarVentas"
+				},
+				{
+					"label": "Analisis SuperAndes",
+					"event": "darAnalisisSuperAndes"
+				},
+				{
+					"label": "Clientes Frecuentes",
+					"event": "clientesFrecuentes"
 				}
+				
 			]
 		},		
 		{ "menuTitle": "Buscar Producto...",

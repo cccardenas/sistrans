@@ -6,6 +6,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import uniandes.isis2304.superAndes.negocio.Empresa;
+import uniandes.isis2304.superAndes.negocio.Producto;
 import uniandes.isis2304.superAndes.negocio.Sucursal;
 
 public class SQLSucursal {
@@ -112,6 +113,11 @@ public class SQLSucursal {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + psa.darTablaSucursal ());
 		q.setResultClass(Sucursal.class);
 		return (List<Sucursal>) q.executeList();
+	}
+	public List<Producto> verProductosSucursal(String sucursal)
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
