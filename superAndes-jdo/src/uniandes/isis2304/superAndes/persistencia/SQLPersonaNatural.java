@@ -49,9 +49,9 @@ public class SQLPersonaNatural {
 	 * @param correo - El correo relacionado a la persona natural.
 	 * @return El número de tuplas insertadas.
 	 */
-	public Long adicionarPersonaNatural(PersistenceManager pm,String tipoDocumento, long numeroIdentificacion,String correo)
+	public Long adicionarPersonaNatural(PersistenceManager pm,String tipoDocumento, String numeroIdentificacion,String correo)
 	{
-		 Query q = pm.newQuery(SQL, "INSERT INTO " + psa.darTablaPersonaNatural () + "(NUMERO_IDENTIFICACION, TIPO_IDENTIFICACION, CORREO_CLIENTE) values (?, ?, ?)");
+		 Query q = pm.newQuery(SQL, "INSERT INTO " + psa.darTablaPersonaNatural () + "(NUMERO_IDENTIFICACION, TIPO_DOCUMENTO, CORREO_CLIENTE) values (?, ?, ?)");
 	     q.setParameters(numeroIdentificacion, tipoDocumento, correo);
 	     return (long) q.executeUnique();
 	}

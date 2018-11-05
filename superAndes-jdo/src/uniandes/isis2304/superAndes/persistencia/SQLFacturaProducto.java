@@ -40,10 +40,10 @@ public class SQLFacturaProducto {
 		this.psa = psa;
 	}
 	
-	public Long adicionarFacturaProducto(PersistenceManager pm,Long numeroFactura, String codigoBarras )
+	public Long adicionarFacturaProducto(PersistenceManager pm,Long numeroFactura, String codigoBarras,int cantidad )
 	{
-		 Query q = pm.newQuery(SQL, "INSERT INTO " + psa.darTablaFacturasProducto() + "(numeroFactura,codigoBarras) values (?, ?)");
-	     q.setParameters(numeroFactura,codigoBarras);
+		 Query q = pm.newQuery(SQL, "INSERT INTO " + psa.darTablaFacturasProducto() + "(numeroFactura,codigoBarras,cantidad) values (?, ?,?)");
+	     q.setParameters(numeroFactura,codigoBarras,cantidad);
 	     return (long) q.executeUnique();
 	}
 	

@@ -112,16 +112,28 @@
 				{
 					"label": "Ventas",
 					"event": "mostrarVentas"
-				},
-				{
-					"label": "Analisis SuperAndes",
-					"event": "darAnalisisSuperAndes"
-				},
-				{
-					"label": "Clientes Frecuentes",
-					"event": "darClientesFrecuentes"
 				}
-				
+			]
+		},	
+		{ "menuTitle": "Carrito de Compras",
+		  "options":
+			[
+				{
+					"label": "Apartar Carrito",
+					"event": "apartarCarrito"
+				},
+				{
+					"label": "Dejar Carrito",
+					"event": "dejarCarrito"
+				},
+				{
+					"label": "Finalizar Compra",
+					"event": "finalizaCompra"
+				},
+				{
+					"label": "Agregar Producto a Carrito",
+					"event": "agregarProductoCarrito"
+				}
 			]
 		},		
 		{ "menuTitle": "Buscar Producto...",

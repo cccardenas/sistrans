@@ -90,7 +90,7 @@ public class Producto {
 	/**
 	 * El nit del proveedor del producto.
 	 */
-	private long nitProveedor;
+	private int nitProveedor;
 
 
 	/* ****************************************************************
@@ -139,7 +139,7 @@ public class Producto {
 	 * @param idAlmacenamiento - El identificador del almacenamiento a donde pertenece el producto en una sucursal.
 	 * @param nitProveedor - El nit del proveedor del producto.
 	 */
-	public Producto(String codigoDeBarras, long idPromocion, String nombre, String marca, double precioUnitario, double volumenEmpaquetado, double peso, String categoria, double nivelReorden, long numeroFactura, long idAlmacenamiento, long nitProveedor, double precioUnidadMedida, int cantidad, String unidadMedida) 
+	public Producto(String codigoDeBarras, long idPromocion, String nombre, String marca, double precioUnitario, double volumenEmpaquetado, double peso, double precioPorUnidadMedida, int cantidadPresentacion, String unidadMedida, double precio, String categoria, double nivelDeReorden, long numeroFactura, long idAlmacenamiento, int nitProveedor) 
 	{
 		this.setCodigoDeBarras(codigoDeBarras);
 		this.setIdPromocion(idPromocion);
@@ -434,7 +434,7 @@ public class Producto {
 	 * 
 	 * @return El nit del proveedor del producto.
 	 */
-	public long getNitProveedor() {
+	public int getNitProveedor() {
 		return nitProveedor;
 	}
 
@@ -443,7 +443,7 @@ public class Producto {
 	 * 
 	 * @param nitProveedor - El nit del proveedor del producto.
 	 */
-	public void setNitProveedor(long nitProveedor) {
+	public void setNitProveedor(int nitProveedor) {
 		this.nitProveedor = nitProveedor;
 	}
 
