@@ -37,7 +37,21 @@ UPDATE A_ALMACENAMIENTO  SET CANTIDADPRODUCTOS=6 WHERE ID_ALMACENAMIENTO = 5;"
 
 --RFC7
 --- Indicar cuáles fueron las fechas de mayor demanda (mayor cantidad de productos), las de mayores ingresos (mayor cantidad de dinero recibido) y las de menor demanda.
-SELECT * FROM A_FACTURA WHERE CORREO_CLIENTE = <CORREO_USUARIO> AND FECHA_COMPRA >= <FECHA_INICIAL> AND FECHA_COMPRA <= <FECHA_FINAL>;
+SELECT SUM(CANTIDAD),FECHA_COMPRA FROM
+(
+SELECT * FROM A_FACTURA_PRODUCTO A
+INNER JOIN (A_FACTURA) B
+ON A.NUMERO_FACTURA = B.NUMERO_FACTURA
+) GROUP BY (EXTRACT(MONTH FROM FECHA_COMPRA)),FECHA_COMPRA ORDER BY FECHA_COMPRA;
+
+
+-----
+SELECT SUM(VALOR_TOTAL),FECHA_COMPRA FROM
+(
+SELECT * FROM A_FACTURA_PRODUCTO A
+INNER JOIN (A_FACTURA) B
+ON A.NUMERO_FACTURA = B.NUMERO_FACTURA
+) GROUP BY (EXTRACT(MONTH FROM FECHA_COMPRA)),FECHA_COMPRA ORDER BY FECHA_COMPRA;
 
 --RFC7
 --- Encontrar la información de sus clientes frecuentes.Se considera frecuente a un cliente que ha realizado por lo menos dos compras mensuales durante todo el periodo de operación de SuperAndes.
