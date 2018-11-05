@@ -1,5 +1,7 @@
 package uniandes.isis2304.superAndes.persistencia;
 
+
+
 public class SQLCarritoSucursal {
 	
 
@@ -30,6 +32,13 @@ public class SQLCarritoSucursal {
 	public SQLCarritoSucursal (PersistenciaSuperAndes psa)
 	{
 		this.psa = psa;
+	}
+	
+	public void adicionarProducto(long codigoBarras, long idAlmacenamiento,int cantidad) {
+		
+	
+		// no
+		
 	}
 	
 

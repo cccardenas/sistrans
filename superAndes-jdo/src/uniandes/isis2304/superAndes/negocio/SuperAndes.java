@@ -1,4 +1,3 @@
-
 package uniandes.isis2304.superAndes.negocio;
 
 import java.util.ArrayList;
@@ -36,6 +35,7 @@ public class SuperAndes {
 	 */
 	private PersistenciaSuperAndes psa;
 	
+	
 	/**
 	 * carritos de compras 
 	 */
@@ -60,9 +60,6 @@ public class SuperAndes {
 	public SuperAndes (JsonObject tableConfig)
 	{
 		psa = PersistenciaSuperAndes.getInstance (tableConfig);
-
-		crearCarritos();
-
 	}
 	
 	/**
@@ -73,8 +70,22 @@ public class SuperAndes {
 		psa.cerrarUnidadPersistencia ();
 	}
 	
-
-
+	/* ****************************************************************
+	 * 			Métodos para manejar los CLIENTES
+	 *****************************************************************/
+	/**
+	 * Adiciona de manera persistente un cliente 
+	 * Adiciona entradas al log de la aplicación
+	 * @param nombre - El nombre del tipo cliente
+	 * @return El objeto TipoBebida adicionado. null si ocurre alguna Excepción
+	 */
+	public Cliente adicionarCliente (String nombre, String correo)
+	{
+        log.info ("Adicionando Cliente: " + nombre);
+        Cliente cliente = psa.adicionarCliente (nombre,correo);		
+        log.info ("Adicionando Cliente: " + cliente);
+        return cliente;
+	}
 	
 	/**
 	 * Elimina un cliente por su nombre
@@ -168,42 +179,6 @@ public class SuperAndes {
         return borrrados;
 	}
 
-
-	public Producto adicionarProducto(String codigoBarras, long idPromocion, String nombre, String marca, double precioUnitario,
-			double volumenEmpaquetado, double peso, String categoria, double nivelReorden, int idFatura, long idAlmacenamiento,
-			long nitProveedor, double precioUnidadMedida, int cantidad, String unidadMedida) 
-	{
-		System.out.println ("Adicionando producto: " + nombre);
-        Producto producto = psa.adicionarProducto (codigoBarras,idPromocion,nombre,marca,precioUnitario,volumenEmpaquetado,peso, categoria,nivelReorden,idFatura, idAlmacenamiento,nitProveedor,precioUnidadMedida,cantidad,unidadMedida) ;
-        System.out.println ("Adicionando producto: " + nombre);
-        return producto;
-	}
-
-	public Proveedor adicionarProveedor(long nit, String nombre, int calificacion,String tipoProveedor)
-	{
-        System.out.println ("Adicionando proveedor: " + nombre);
-        Proveedor proveedor = psa.adicionarProveedor (nit,nombre,calificacion,tipoProveedor);
-        System.out.println ("Adicionando proveedor: " + proveedor);
-        return proveedor;
-	}
-
-	public PersonaNatural adicionarPersonaNatural(String correo, String nombre, int puntos, String tipoId,
-			long numIdentificacion)
-	{
-		System.out.println ("Adicionando Cliente: " + nombre);
-        psa.adicionarCliente (nombre,correo,puntos);
-        System.out.println ("Adicionando Cliente: " + nombre);
-        
-        System.out.println ("=========================================================================");
-		
-		System.out.println ("Adicionando Persona Natural: " + nombre);
-        PersonaNatural personaNatural = psa.adicionarPersonaNatural (correo,tipoId,numIdentificacion,puntos,nombre);
-        System.out.println ("Adicionando Persona Natural: " + nombre);
-        
-        return personaNatural;
-		
-	}
-	
 	public Producto adicionarProducto(String text, String text2, String text3, String text4, double parseDouble,
 			double parseDouble2, double parseDouble3, String text5, double parseDouble4, int parseInt, long parseLong,
 			JTextField nit) {
@@ -216,6 +191,11 @@ public class SuperAndes {
 		return null;
 	}
 
+	public PersonaNatural adicionarPersonaNatural(String text, String text2, int parseInt, String text3,
+			long parseLong) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	public Sucursal adicionarSucursal(String text, String text2, String text3, long parseLong2) {
 		// TODO Auto-generated method stub
@@ -274,13 +254,6 @@ public class SuperAndes {
 	return	carritos.size();
 	}
 
-	
-	
-
-
-		
-
-
 	public void tomarCarrito(long cedula) {
 		boolean tomado=false;
 		for(int i=0; i<carritos.size() || tomado==true;i++) {
@@ -290,7 +263,6 @@ public class SuperAndes {
 				tomado=false;
 			}
 		}
-
 	}
 	
 	public void dejarCarritoSinCompra(long cedula) {
@@ -298,71 +270,51 @@ public class SuperAndes {
 		for(int i=0;i<carritos.size()||found==false;i++) {
 			CarritoCompras c= (CarritoCompras) carritos.get(i);
 			if(c.darCedula()==cedula) {
-
 				c.devolverProductos();
-
 				c.setCedula(0);
 				found=true;
 			}
 		}
 	}
 	
-
-	
-	
+	public void devolverProductoAlAlmacenamiento(long idAlmacenamiento) {
+		psa.devolverProducto(idAlmacenamiento);
+	}
 	
 	
 	public void terminarCompra(long cedula,long numeroFactura) {
-
 		boolean found= false;
 		for(int i=0;i<carritos.size()||found==false;i++) {
 			CarritoCompras c= (CarritoCompras) carritos.get(i);
 			if(c.darCedula()==cedula) {
 				for(int j=0;j<c.darProductos().size();j++) {
-
-					//CODIGO PARA VENDER PRODUCTOS
-
 					Producto p= (Producto) c.darProductos().get(j);
 					String codigo= p.getCodigoDeBarras();
 					
 					
-
 				}
 				found=true;
 			}
 		}
 	}
 	
-
-	public void agregarProductoAllCarrito(Producto p, int idCarrito) {
-
+	public void agregarProductoAllCarrito( String codigoBarras, String cedula) {
 			
-		CarritoCompras carrito= (CarritoCompras) carritos.get(idCarrito);
+	long ced= Long.parseLong(cedula);
+	
+	long idCarrito=0;
+	for (int i=0;i<carritos.size();i++) {
+	CarritoCompras c= (CarritoCompras) carritos.get(i);
+	if(c.darCedula()==ced) {
+		idCarrito=c.darId();
+	}
+	}
+		
+	Producto p= psa.buscarPorducto(codigoBarras);
+		
+		CarritoCompras carrito= (CarritoCompras) carritos.get((int) idCarrito);
 		
 		carrito.agregarProductosCarrito(p);
+		psa.tomarProductoAlmacenamiento(p.getIdAlmacenamiento(), 1);
 			}
-
-
-	public ArrayList verProductos(String sucursal)
-	{
-		psa.verProductosSucursal(sucursal);
-		return null;
-	}
-	
-	/**====== CONSULTAS ITERACION 2 =======**/
-	
-	public void darAnalisisSuperAndes(String unidadTiempo, String tipoProducto)
-	{
-		
-	}
-	
-	public List<ClienteFrecuente> darClientesFrecuentes(String sucursal)
-	{
-		System.out.println ("Adicionando lista de clientes frecuentes de: " + sucursal);
-        
-        return psa.darClientesFrecuentes(sucursal);
-	}
-	
-	
-
 }

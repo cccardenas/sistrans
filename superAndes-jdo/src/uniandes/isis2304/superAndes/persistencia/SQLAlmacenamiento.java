@@ -68,7 +68,7 @@ class SQLAlmacenamiento {
 	 * @param idAlmacenamiento - El identificador único del almacenamiento.
 	 * @return El objeto ALMACENAMIENTO que tiene el identificador dado.
 	 */
-	public Almacenamiento darAlmacenamientoPorId (PersistenceManager pm, int idAlmacenamiento)
+	public Almacenamiento darAlmacenamientoPorId (PersistenceManager pm, long idAlmacenamiento)
 	{
         Query q = pm.newQuery(SQL, "SELECT * FROM " + psa.darTablaAlmacenamiento () + " WHERE ID_ALMACENAMIENTO = ?");
         q.setResultClass(Almacenamiento.class);
@@ -112,5 +112,33 @@ class SQLAlmacenamiento {
 		 a.setParameters(idAlmacenamiento);  
 		 return idAlmacenamiento;
 	}
+	
+	public long disminuirCantidadAlmacenamiento(PersistenceManager pm , long idAlmacenamiento) {
+		Query q = pm.newQuery(SQL, "SELECT CANTIDADPRODUCTOS FROM " + psa.darTablaAlmacenamiento ()+ "WHERE ID_ALMACENAMIENTO = ?");
+		 q.setParameters(idAlmacenamiento);  
+		int cantidad = (int) q.execute();
+		cantidad--;
+		Query a = pm.newQuery(SQL, "UPDATE  " + psa.darTablaAlmacenamiento ()+ " SET CANTIDADPRODUCTOS="+cantidad+" WHERE ID_ALMACENAMIENTO = "+idAlmacenamiento+";");
+		 a.setParameters(idAlmacenamiento);  
+		 return idAlmacenamiento;
+	}
 
+	
+	public int darCantidadAlmacenamiento(PersistenceManager pm , long idAlmacenamiento) {
+		
+		Query q = pm.newQuery(SQL, "SELECT CANTIDADPRODUCTOS FROM " + psa.darTablaAlmacenamiento ());
+		 q.setParameters(idAlmacenamiento);  
+		int cantidad = (int) q.execute();
+		return cantidad;
+		
+	}
+	
+	public long actualizarAlmacenamiento(PersistenceManager pm, long idAlmacenamiento, int cantidad) {
+		
+		
+		Query q = pm.newQuery(SQL, "UPDATE  " + psa.darTablaAlmacenamiento ()+ " SET CANTIDADPRODUCTOS="+cantidad+ " WHERE IDALMACENAMIENTO=?");
+		 q.setParameters(cantidad,idAlmacenamiento);  
+		long a= (long) q.execute();
+		return a;
+	}
 }

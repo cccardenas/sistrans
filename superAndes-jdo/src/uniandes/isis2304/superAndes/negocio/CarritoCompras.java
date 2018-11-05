@@ -80,6 +80,7 @@ public class CarritoCompras {
 	 */
 	public void agregarProductosCarrito(Producto p)
 	{
+		
 		productos.add(p);
 	}
 	
@@ -90,5 +91,10 @@ public class CarritoCompras {
 	public void setCedula(long cedula) {
 		this.cedula=cedula;
 		cambiarDisponibilidad();
+	}
+	
+	public long darId()
+	{
+		return this.id;
 	}
 }

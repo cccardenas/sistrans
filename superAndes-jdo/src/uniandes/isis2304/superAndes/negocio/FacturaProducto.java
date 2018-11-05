@@ -15,7 +15,7 @@ public class FacturaProducto {
 	 * Numero de la factura.
 	 */
 	
-	private int numeroFactura;
+	private long numeroFactura;
 	
 	/**
 	 * Identificador unico de un producto.
@@ -51,7 +51,7 @@ public class FacturaProducto {
 	 * @param cantidad - Cantidad de un producto en una factura.
 	 */
 	
-	public FacturaProducto(int numeroFactura, String codigoDeBarrasProducto, int cantidad)
+	public FacturaProducto(long numeroFactura, String codigoDeBarrasProducto, int cantidad)
 	{
 		this.numeroFactura = numeroFactura;
 		this.codigoDeBarrasProducto = codigoDeBarrasProducto;
@@ -63,7 +63,7 @@ public class FacturaProducto {
 	 * @return El número de factura.
 	 */
 
-	public int getNumeroFactura() {
+	public long getNumeroFactura() {
 		return numeroFactura;
 	}
 	
@@ -73,7 +73,7 @@ public class FacturaProducto {
 	 * @param numeroFactura - El número de factura.
 	 */
 
-	public void setNumeroFactura(int numeroFactura) {
+	public void setNumeroFactura(long numeroFactura) {
 		this.numeroFactura = numeroFactura;
 	}
 	/**
