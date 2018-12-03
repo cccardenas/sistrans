@@ -970,7 +970,25 @@ public class InterfazSuperAndes extends JFrame implements ActionListener{
 		    }
 
 		    
+		    public void consumoSuperAndes()
+		    {
+		    	
+		    }
 		    
+		    public void consumoSuperAndes2()
+		    {
+		    	
+		    }
+		    
+		    public void consultarFuncionamiento()
+		    {
+		    	
+		    }
+		    
+		    public void consultarBuenosClientes()
+		    {
+		    	
+		    }
 
 
 	  
