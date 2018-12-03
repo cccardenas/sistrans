@@ -1,0 +1,1 @@
+sqlldr CONTROL=A_LOCALVENTAS.ctl   skip=1   

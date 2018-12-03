@@ -112,7 +112,28 @@
 				{
 					"label": "Ventas",
 					"event": "mostrarVentas"
+				},
+				{
+					"label": "CONSUMO SUPERANDES",
+					"event": "consumoSuperAndes"
+				},
+				{
+					"label": "CONSUMO SUPERANDES(2)",
+					"event": "consumoSuperAndes2"
+				},
+				{
+					"label": "CONSULTAR FUNCIONAMIENTO",
+					"event": "consultarFuncionamiento"
+				},
+				{
+					"label": "CONSULTAR BUENOS CLIENTES",
+					"event": "consultarBuenosClientes"
+				},
+				{
+					"label": "Ventas",
+					"event": "mostrarVentas"
 				}
+				
 			]
 		},	
 		{ "menuTitle": "Carrito de Compras",
