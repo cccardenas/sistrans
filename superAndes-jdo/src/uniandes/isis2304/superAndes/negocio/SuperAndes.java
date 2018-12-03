@@ -317,4 +317,16 @@ public class SuperAndes {
 		carrito.agregarProductosCarrito(p);
 		psa.tomarProductoAlmacenamiento(p.getIdAlmacenamiento(), 1);
 			}
+	
+	//it 3
+	
+	public String consultarFuncionamiento(String fechaInicio, String fechaFin) {
+	String a=psa.consultarFunc(fechaInicio, fechaFin);
+	return a;
+	}
+	
+	public List<Cliente> consultarBuenosClientes(String fechaInicio,String fechaFin){
+		List<Cliente > a= psa.consultarBuenosClientes(fechaInicio, fechaFin);
+		return a;
+	}
 }

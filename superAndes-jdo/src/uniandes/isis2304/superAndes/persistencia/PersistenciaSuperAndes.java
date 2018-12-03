@@ -1,5 +1,6 @@
 package uniandes.isis2304.superAndes.persistencia;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -798,6 +799,73 @@ public Producto buscarPorducto(String codigoBarras) {
 		
 	}
 	
+	//iteracion 3
 	
+public String consultarFunc(String fechaInicio,String fechaFin) {
+		
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            //long idCliente = nextval ();
+         String a= sqlSucursal.consultarFuncionamiento(pm, fechaInicio, fechaFin);
+         
+         
+            tx.commit();
+            
+            log.trace ("consulta funcionamiento");
+         return a;
+        }
+        catch (Exception e)
+        {
+        	e.printStackTrace();
+        	System.out.println ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+		return null;
+		
+	}
+public List<Cliente> consultarBuenosClientes(String fechaInicio,String fechaFin) {
 	
+	PersistenceManager pm = pmf.getPersistenceManager();
+    Transaction tx=pm.currentTransaction();
+    List<Cliente> clientes= new ArrayList<>();
+    try
+    {
+        tx.begin();
+        //long idCliente = nextval ();
+    clientes = sqlSucursal.consultarBuenosClientes(pm, fechaInicio, fechaFin);
+     
+     
+        tx.commit();
+        
+        log.trace ("consulta buenosClientes");
+     return clientes;
+    }
+    catch (Exception e)
+    {
+    	e.printStackTrace();
+    	System.out.println ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+    
+    }
+    finally
+    {
+        if (tx.isActive())
+        {
+            tx.rollback();
+        }
+        pm.close();
+    }
+	return null;
+	
+}
 }

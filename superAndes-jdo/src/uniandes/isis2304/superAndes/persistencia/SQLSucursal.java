@@ -5,6 +5,7 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
+import uniandes.isis2304.superAndes.negocio.Cliente;
 import uniandes.isis2304.superAndes.negocio.Empresa;
 import uniandes.isis2304.superAndes.negocio.Sucursal;
 
@@ -114,6 +115,34 @@ public class SQLSucursal {
 		return (List<Sucursal>) q.executeList();
 	}
 	
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar la información de LAS SUCURSALES de la 
+	 * base de datos de SuperAndes
+	 * @param pm - El manejador de persistencia
+	 * @return Una lista de objetos SUCURSAL
+	 */
+	public String consultarFuncionamiento (PersistenceManager pm,String fechaInicio,String fechaFin) 
+	{
+		Query q = pm.newQuery(SQL, "WITH A AS(SELECT A_FACTURA.NUMERO_FACTURA FROM A_FACTURA WHERE FECHA_COMPRA BETWEEN '"+fechaInicio+"' AND '"+fechaFin+"'),\n" + 
+				"B AS (SELECT A_FACTURA_PRODUCTO.CODIGO_DE_BARRAS,A_FACTURA_PRODUCTO.CANTIDAD FROM A_FACTURA_PRODUCTO INNER JOIN A ON A.NUMERO_FACTURA = A_FACTURA_PRODUCTO.NUMERO_FACTURA),\n" + 
+				"C AS(SELECT NOMBRE, B.CANTIDAD CANTIDAD FROM A_PRODUCTO INNER JOIN B ON B.CODIGO_DE_BARRAS =A_PRODUCTO.CODIGO_DE_BARRAS),\n" + 
+				"D AS(SELECT C.NOMBRE,C.CANTIDAD FROM C  ORDER BY C.CANTIDAD DESC)\n" + 
+				"SELECT D.NOMBRE,D.CANTIDAD FROM D WHERE ROWNUM= 1;\n" + 
+				" ");
+		
+		 return (String) q.executeUnique();
+	}
 	
+	public List<Cliente> consultarBuenosClientes (PersistenceManager pm,String fechaInicio,String fechaFin) 
+	{
+		Query q = pm.newQuery(SQL, "WITH A AS(SELECT NUMERO_FACTURA,CORREO_CLIENTE FROM A_FACTURA WHERE FECHA_COMPRA BETWEEN '"+fechaInicio+"' AND '"+fechaFin+"'), \n" + 
+				"B AS(SELECT CODIGO_DE_BARRAS FROM A_PRODUCTO WHERE PRECIO >=100000 AND CATEGORIA= 'TECNOLOGIA' AND CATEGORIA= 'HERRAMIENTAS'),\n" + 
+				"C AS (SELECT NUMERO_FACTURA FROM A_FACTURA_PRODUCTO INNER JOIN B ON B.CODIGO_DE_BARRAS=A_FACTURA_PRODUCTO.CODIGO_DE_BARRAS), \n" + 
+				"D AS(SELECT CORREO_CLIENTE FROM A INNER JOIN C ON A.NUMERO_FACTURA= C.NUMERO_FACTURA),\n" + 
+				"E AS(SELECT TIPO_DOCUMENTO,NUMERO_IDENTIFICACION,CORREO_CLIENTE  FROM A_PERSONANATURAL ),\n" + 
+				"F AS(SELECT E.TIPO_DOCUMENTO,E.NUMERO_IDENTIFICACION,E.CORREO_CLIENTE FROM E INNER JOIN D ON E.CORREO_CLIENTE=D.CORREO_CLIENTE)\n"+"SELECT *  FROM F"+";");
+		q.setResultClass(Cliente.class);
+		return (List<Cliente>) q.executeList();
+	}
 
 }
